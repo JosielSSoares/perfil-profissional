@@ -24,29 +24,33 @@ const experiences: Experience[] = [
   {
     company: "Nota Control Tecnologia",
     role: "QA Tester",
-    period: "2025 — Present",
+    period: "08/2025 — Presente",
     description:
-      "Leading software quality assurance initiatives for fiscal systems. Executing rigorous manual testing and transitioning towards automated frameworks to ensure stability and compliance.",
-    tags: ["SQL Server", "Postman", "Azure DevOps", "Scrum"],
+      "Liderando iniciativas de garantia da qualidade de software para sistemas fiscais e processuais. Executando testes manuais rigorosos e fazendo a transição para frameworks automatizados para garantir entregas que superam as espectativas do time e dos clientes.",
+    tags: ["MSSQL Server", "Postman", "Azure DevOps", "Scrum", "DevTools"],
     color: "border-emerald-400",
   },
   {
     company: "Unisys Corporation",
     role: "IT Support Analyst",
-    period: "2017 — 2023",
+    period: "11/2017 — 08/2023",
     description:
-      "Technical support and infrastructure monitoring. Developed a deep understanding of system architectures and performance bottlenecks, laying the groundwork for a transition to specialized QA.",
-    tags: ["Troubleshooting", "Windows Server", "Network Protocols"],
-    color: "border-blue-500",
+      "Suporte técnico e monitoramento de infraestrutura de grandes empresas, com SLA rigorosos. Desenvolvi um profundo conhecimento de arquiteturas de sistemas e gargalos de processos de HelpDeskp, preparando o terreno para uma transição para a área de Garantia de Qualidade.",
+    tags: [
+      "Troubleshooting",
+      "Windows Server",
+      "ITMS ServiceNow",
+      "Active Directory",
+    ],
+    color: "border-emerald-400",
   },
   {
     company: "Omega Distribuidora",
     role: "Web Designer - Estagiário",
-    period: "2017 — 2023",
-    description:
-      "Technical support and infrastructure monitoring. Developed a deep understanding of system architectures and performance bottlenecks, laying the groundwork for a transition to specialized QA.",
-    tags: ["Troubleshooting", "Windows Server", "Network Protocols"],
-    color: "border-blue-500",
+    period: "2017",
+    description: "Em construção...",
+    tags: ["Photoshop + IncScape", "HTML + CSS", "WordPress"],
+    color: "border-emerald-400",
   },
 ];
 
@@ -54,41 +58,42 @@ const skills: Skill[] = [
   {
     title: "Teste de Regressão",
     description:
-      "Ensuring new deployments don't disrupt existing functionality through systematic, multi-layered verification processes.",
+      "Garantir que novas implementações não interrompam as funcionalidades existentes por meio de processos de verificação sistemáticos e em várias camadas.",
     icon: "Bug",
     variant: "surface",
   },
   {
     title: "Teste de API",
     description:
-      "Proficient in Postman and Swagger for RESTful service validation.",
+      "Proficiente em Postman e Swagger para validação de serviços RESTful.",
     icon: "Code2",
     variant: "primary",
   },
   {
-    title: " MS SQL SERVER",
+    title: "MS SQL SERVER",
     description:
-      "Complex queries and data integrity validation within SQL Server environments.",
+      "Consultas e validação da integridade dos dados em ambientes SQL Server.",
     icon: "Database",
     variant: "surface",
   },
   {
-    title: " Padrão BDD / Gherkin",
+    title: "BDD / Gherkin",
     description:
-      "Writing clear, human-readable test scenarios that align business logic with technical execution.",
+      "Escrever cenários de teste claros e de fácil compreensão para os desenvolvedores, que alinhem a lógica de negócios com a execução técnica.",
     icon: "Terminal",
     variant: "surface",
   },
   {
-    title: "Infrastructure Awareness",
+    title: "Conhecimento de Infraestrutura",
     description:
-      "Hands-on experience with AWS cloud monitoring and Windows Server administration to better understand environment-specific issues.",
+      "Conhecimento prático da nuvem AWS e administração de seus serviços, para melhor compreensão de problemas específicos do ambiente.",
     icon: "Cloud",
     variant: "surface",
   },
   {
-    title: "Process QA",
-    description: "Agile/Scrum mastery for seamless team integration.",
+    title: "Agile",
+    description:
+      "Domínio de metodologias ágeis/Scrum para uma integração perfeita da equipe",
     icon: "CheckSquare",
     variant: "accent",
   },
@@ -291,7 +296,7 @@ export default function App() {
               01
             </span>
             <h2 className="text-5xl md:text-6xl font-black text-[#162839] tracking-tighter relative z-10">
-              Jornada Professional
+              Jornada Profissional
             </h2>
           </div>
 
@@ -355,57 +360,46 @@ export default function App() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {skills.map((skill, index) => (
-              <motion.div
-                key={skill.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className={`p-10 rounded-3xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 ${
-                  skill.variant === "primary"
-                    ? "bg-[#162839] text-white lg:col-span-1 shadow-2xl"
-                    : skill.variant === "accent"
-                      ? "bg-emerald-400 text-[#162839] lg:col-span-1"
-                      : "bg-white text-[#162839] shadow-sm"
-                } ${index === 0 ? "lg:col-span-2" : ""} ${index === 4 ? "lg:col-span-2" : ""}`}
-              >
-                <div>
-                  <div
-                    className={`mb-8 w-14 h-14 rounded-2xl flex items-center justify-center ${
-                      skill.variant === "primary"
-                        ? "bg-white/10"
-                        : skill.variant === "accent"
-                          ? "bg-[#162839]/10"
-                          : "bg-slate-100"
-                    }`}
-                  >
-                    <IconComponent
-                      name={skill.icon}
-                      className={`w-7 h-7 ${
-                        skill.variant === "primary"
-                          ? "text-emerald-400"
-                          : skill.variant === "accent"
-                            ? "text-[#162839]"
-                            : "text-blue-600"
-                      }`}
-                    />
+            {skills.map((skill, index) => {
+              const isWide =
+                skill.title === "Teste de Regressão" ||
+                skill.title === "BDD / Gherkin";
+
+              return (
+                <motion.div
+                  key={skill.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                  // --- CLASSES ATUALIZADAS PARA O EFEITO HOVER ---
+                  // Padrão: bg-white text-[#162839] shadow-sm
+                  // Hover:  hover:bg-[#162839] hover:text-white hover:shadow-2xl
+                  className={`group p-10 rounded-3xl flex flex-col justify-between transition-all duration-360 hover:-translate-y-2 
+                  bg-white text-[#162839] shadow-sm 
+                  hover:bg-[#162839] hover:text-white hover:shadow-2xl
+              ${isWide ? "lg:col-span-2" : "lg:col-span-1"}`}
+                >
+                  <div>
+                    
+                    <div className="mb-8 w-14 h-14 rounded-2xl flex items-center justify-center bg-[#162839]/5 transition-colors duration-300 group-hover:bg-white10">
+                      <IconComponent
+                        name={skill.icon}
+                        // Ícone padrão azul, mas fica esmeralda no hover
+                        className="w-7 h-7 text-blue-600 transition-colors duration-300 group-hover:text-emerald-400"
+                      />
+                    </div>
+                    <h3 className="text-2xl font-black mb-3 tracking-tight">
+                      {skill.title}
+                    </h3>
+                    {/* Descrição padrão cinza, mas fica mais clara no hover */}
+                    <p className="text-sm leading-relaxed text-slate-500 transition-colors duration-300 group-hover:text-slate-300">
+                      {skill.description}
+                    </p>
                   </div>
-                  <h3 className="text-2xl font-black mb-3 tracking-tight">
-                    {skill.title}
-                  </h3>
-                  <p
-                    className={`text-sm leading-relaxed ${
-                      skill.variant === "primary"
-                        ? "text-slate-400"
-                        : "text-slate-500"
-                    }`}
-                  >
-                    {skill.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -419,7 +413,8 @@ export default function App() {
                 Certificações
               </h2>
               <p className="text-slate-500 mt-4 text-lg">
-                Continuous professional development and industry validation.
+                Conquistas mais recentes para garantir meu crescimento
+                profissional contínuo.
               </p>
             </div>
             <div className="flex gap-3">
@@ -443,7 +438,7 @@ export default function App() {
                 className="group"
               >
                 <div
-                  className={`p-6 bg-[#f7f9fb] rounded-[2.5rem] border-[16px] ${cert.borderColor} shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]`}
+                  className={`p-6 bg-[#f7f9fb] rounded-[2.5rem] border-[8px] ${cert.borderColor} shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]`}
                 >
                   <div className="aspect-[4/3] bg-white rounded-2xl flex items-center justify-center flex-col gap-4 text-slate-300 mb-8 relative overflow-hidden">
                     <div className="w-20 h-20 rounded-full bg-slate-50 flex items-center justify-center">
@@ -513,14 +508,14 @@ export default function App() {
               target="_blank"
               rel="noopener noreferrer"
             >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto border-2 border-white/20 text-white px-12 py-5 rounded-2xl font-black text-xl flex items-center justify-center gap-3 hover:bg-white/5 transition-colors"
-            >
-              <Download size={24} />
-              Download CV
-            </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto border-2 border-white/20 text-white px-12 py-5 rounded-2xl font-black text-xl flex items-center justify-center gap-3 hover:bg-white/5 transition-colors"
+              >
+                <Download size={24} />
+                Download CV
+              </motion.button>
             </a>
           </div>
         </div>
