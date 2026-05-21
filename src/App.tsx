@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import minhFoto from "./assets/image/Eu.png";
+import fotoEscolaNuvem from "./assets/image/certificados/Escolada-Nuvem.jpg";
 import curriculoPDF from "./assets/docs/Curriculo_Josiel_Soares_QA_2026.pdf";
 import { motion, AnimatePresence } from "motion/react";
 import { Experience, Skill, Certification } from "./types";
@@ -19,6 +20,7 @@ import {
   ExternalLink,
   Code2,
 } from "lucide-react";
+import { url } from "inspector";
 
 const experiences: Experience[] = [
   {
@@ -105,6 +107,7 @@ const certifications: Certification[] = [
     year: "2020",
     issuer: "Uniderp",
     borderColor: "border-[#2c3e50]",
+    image: fotoEscolaNuvem,
   },
   {
     title: "Microsoft SQL Server",
@@ -118,6 +121,11 @@ const certifications: Certification[] = [
     issuer: "Amazon Web Services",
     borderColor: "border-[#162839]",
   },
+];
+
+const socialLinks = [
+  { name: "LinkedIn", url: "https://www.linkedin.com/in/josielssoares/" },
+  { name: "GitHub", url: "https://github.com/JosielSSoares" },
 ];
 
 export default function App() {
@@ -170,15 +178,16 @@ export default function App() {
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition-colors"
+                  className={`text-sm font-bold uppercase tracking-widest transition-all ${
+                    item === "Contact"
+                      ? "bg-[#162839] text-white px-6 py-2.5 rounded-lg hover:bg-[#274059] active:scale-95"
+                      : "text-slate-900 hover:text-blue-600"
+                  }`}
                 >
                   {item}
                 </a>
               ),
             )}
-            <button className="bg-[#162839] text-white px-6 py-2.5 rounded-lg font-bold text-sm tracking-wide hover:opacity-90 active:scale-95 transition-all">
-              Hire Me
-            </button>
           </div>
 
           <button
@@ -206,15 +215,16 @@ export default function App() {
                     key={item}
                     href={`#${item.toLowerCase()}`}
                     onClick={() => setIsMenuOpen(false)}
-                    className="text-2xl font-black tracking-tighter text-slate-900"
+                    className={`transition-all ${
+                      item === "Contact"
+                        ? "bg-[#162839] text-white px-6 py-2.5 rounded-lg hover:bg-[#274059] active:scale-95"
+                        : "text-slate-900 hover:text-blue-600"
+                    }`}
                   >
                     {item}
                   </a>
                 ),
               )}
-              <button className="bg-[#162839] text-white py-4 rounded-xl font-bold text-lg">
-                Hire Me
-              </button>
             </div>
           </motion.div>
         )}
@@ -234,9 +244,8 @@ export default function App() {
               Soares
             </h1>
             <p className="text-2xl text-slate-300 font-medium mb-10 flex items-center gap-3">
-              Quality Assurance{" "}
-              <span className="w-8 h-[1px] bg-emerald-400"></span> Software
-              Quality
+              (QA) Quality Assurance{" "}
+              <span className="w-8 h-[1px] bg-emerald-400"></span> Software Test
             </p>
             <div className="p-8 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 max-w-xl">
               <p className="text-slate-300 leading-relaxed text-lg">
@@ -381,7 +390,6 @@ export default function App() {
               ${isWide ? "lg:col-span-2" : "lg:col-span-1"}`}
                 >
                   <div>
-                    
                     <div className="mb-8 w-14 h-14 rounded-2xl flex items-center justify-center bg-[#162839]/5 transition-colors duration-300 group-hover:bg-white10">
                       <IconComponent
                         name={skill.icon}
@@ -441,12 +449,25 @@ export default function App() {
                   className={`p-6 bg-[#f7f9fb] rounded-[2.5rem] border-[8px] ${cert.borderColor} shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]`}
                 >
                   <div className="aspect-[4/3] bg-white rounded-2xl flex items-center justify-center flex-col gap-4 text-slate-300 mb-8 relative overflow-hidden">
-                    <div className="w-20 h-20 rounded-full bg-slate-50 flex items-center justify-center">
-                      <ShieldCheck size={40} className="opacity-20" />
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-[0.3em]">
-                      Official Credential
-                    </span>
+                    {/* LÓGICA DA IMAGEM: Se cert.image existir, mostra a tag <img>, senão mostra o escudo */}
+                    {cert.image ? (
+                      <img
+                        src={cert.image}
+                        alt={`Certificado de ${cert.title}`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <>
+                        <div className="w-20 h-20 rounded-full bg-slate-50 flex items-center justify-center">
+                          <ShieldCheck size={40} className="opacity-20" />
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">
+                          Official Credential
+                        </span>
+                      </>
+                    )}
+
+                    {/* O SEU EFEITO DE HOVER INTACTO */}
                     <div className="absolute inset-0 bg-[#162839]/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
                       <button className="bg-white text-[#162839] px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 shadow-xl">
                         <ExternalLink size={16} />
@@ -454,6 +475,8 @@ export default function App() {
                       </button>
                     </div>
                   </div>
+
+                  {/* Restante do card (Título, Issuer, Year)... */}
                   <div className="px-2 pb-2">
                     <h4 className="text-xl font-black text-[#162839] mb-1">
                       {cert.title}
@@ -536,11 +559,13 @@ export default function App() {
           <div className="flex gap-12">
             {socialLinks.map((social) => (
               <a
-                key={social}
-                href="#"
+                key={social.name}
+                href={social.url}
+                target="_blanl"
+                rel="noopener noreferrer"
                 className="text-sm font-bold tracking-widest text-slate-400 hover:text-emerald-500 transition-colors uppercase"
               >
-                {social}
+                {social.name}
               </a>
             ))}
           </div>
@@ -549,5 +574,3 @@ export default function App() {
     </div>
   );
 }
-
-const socialLinks = ["LinkedIn", "GitHub", "Email"];

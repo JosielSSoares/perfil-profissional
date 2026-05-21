@@ -19,4 +19,5 @@ export interface Certification {
   year: string;
   issuer: string;
   borderColor: string;
+  image?: string;
 }
