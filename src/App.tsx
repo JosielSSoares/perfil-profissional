@@ -48,9 +48,9 @@ const experiences: Experience[] = [
   },
   {
     company: "Omega Distribuidora",
-    role: "Web Designer - Estagiário",
-    period: "2017",
-    description: "Em construção...",
+    role: "Web Designer - Estágio 150h",
+    period: "07/2018 — 09/2018",
+    description: "Desenvolvimento de materiais gráficos e manutenção do layout do site. Essa experiência inicial foi essencial para despertar uma perspectiva da visão do usuário final.",
     tags: ["Photoshop + IncScape", "HTML + CSS", "WordPress"],
     color: "border-emerald-400",
   },
@@ -517,24 +517,17 @@ export default function App() {
             Vamos elevar a qualidade do seu software?
           </motion.h2>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-full sm:w-auto bg-emerald-400 text-[#162839] px-12 py-5 rounded-2xl font-black text-xl flex items-center justify-center gap-3 shadow-2xl shadow-emerald-400/20"
-            >
-              <Mail size={24} />
-              Entre em Contato
-            </motion.button>
             <a
               href={curriculoPDF}
               download="Curriculo_Josiel_Soares_QA.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              className="w-full sm:w-auto"
             >
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto border-2 border-white/20 text-white px-12 py-5 rounded-2xl font-black text-xl flex items-center justify-center gap-3 hover:bg-white/5 transition-colors"
+                className="w-full sm:w-auto bg-emerald-400 text-[#162839] px-12 py-5 rounded-2xl font-black text-xl flex items-center justify-center gap-3 shadow-2xl shadow-emerald-400/20"
               >
                 <Download size={24} />
                 Download CV
