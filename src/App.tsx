@@ -146,6 +146,14 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // --- NOVOS ESTADOS PARA O EFEITO DAS CERTIFICAÇÕES ---
+  const [certIndex, setCertIndex] = useState(0);
+  // Garante que o slider só ande o necessário (Total de cards - 3 visíveis)
+  const maxCertIndex = Math.max(0, certifications.length - 3);
+
+  const nextCert = () => setCertIndex((prev) => Math.min(prev + 1, maxCertIndex));
+  const prevCert = () => setCertIndex((prev) => Math.max(prev - 1, 0));
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
@@ -303,7 +311,7 @@ export default function App() {
               <div className="inline-flex items-center gap-2 bg-emerald-400 bg-emerald-500/75 px-4 py-1.5 rounded-full mb-8 border border-emerald-400/20">
                 <ShieldCheck size={14} />
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase">
-                  QA Engineering
+                  Garantia de Qualidade
                 </span>
               </div>
             </motion.div>
@@ -427,7 +435,7 @@ export default function App() {
       </section>
 
       {/* Certifications Section */}
-      <section id="certifications" className="py-32 px-6 md:px-12 bg-white">
+      <section id="certifications" className="py-32 px-6 md:px-12 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div>
@@ -440,70 +448,91 @@ export default function App() {
               </p>
             </div>
             <div className="flex gap-3">
-              <button className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#162839] hover:text-white transition-all group">
-                <ChevronLeft className="group-active:scale-90 transition-transform" />
+              <button 
+                onClick={prevCert}
+                disabled={certIndex === 0}
+                className={`w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center transition-all group ${certIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#162839] hover:text-white'}`}
+              >
+                <ChevronLeft className={`transition-transform ${certIndex !== 0 ? 'group-active:scale-90' : ''}`} />
               </button>
-              <button className="w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#162839] hover:text-white transition-all group">
-                <ChevronRight className="group-active:scale-90 transition-transform" />
+              <button 
+                onClick={nextCert}
+                disabled={certIndex >= maxCertIndex}
+                className={`w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center transition-all group ${certIndex >= maxCertIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#162839] hover:text-white'}`}
+              >
+                <ChevronRight className={`transition-transform ${certIndex !== maxCertIndex ? 'group-active:scale-90' : ''}`} />
               </button>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10">
-            {certifications.map((cert, index) => (
-              <motion.div
-                key={cert.title}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group">
-                <div className={`p-6 bg-[#f7f9fb] rounded-[2.5rem] border-[8px] ${cert.borderColor} shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]`}>
-                  <div className="aspect-[4/3] bg-white rounded-2xl flex items-center justify-center flex-col gap-4 text-slate-300 mb-8 relative overflow-hidden">
-                    {/* LÓGICA DA IMAGEM: Se cert.image existir, mostra a tag <img>, senão mostra o escudo */}
-                    {cert.image ? (
-                      <img
-                        src={cert.image}
-                        alt={`Certificado de ${cert.title}`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    ) : (
-                      <>
-                        <div className="w-20 h-20 rounded-full bg-slate-50 flex items-center justify-center">
-                          <ShieldCheck size={40} className="opacity-20" />
-                        </div>
-                        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">
-                          Official Credential
-                        </span>
-                      </>
-                    )}
+          {/* Container Externo escondendo o que vazar (Overflow Hidden) */}
+          <div className="overflow-visible md:overflow-hidden w-full pb-4">
+            {/* Trilha Interna Deslizante */}
+            <div 
+              className="flex flex-col md:flex-row gap-10 transition-transform duration-500 ease-in-out"
+              style={{
+                // Move exatemente 1 card para a esquerda (33.33% da largura + metade do gap de 40px) 
+                // apenas em telas maiores. Em mobile eles empilham normalmente.
+                transform: typeof window !== 'undefined' && window.innerWidth >= 768 
+                  ? `translateX(calc(-${certIndex} * (33.333% + 13.33px)))` 
+                  : 'none'
+              }}
+            >
+              {certifications.map((cert, index) => (
+                <motion.div
+                  key={cert.title}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  // Ao invés do grid, nós fixamos a largura do card em ~33.3% para forçar 3 por linha 
+                  // e prevenimos que ele encolha com flex-shrink-0
+                  className="group flex-shrink-0 w-full md:w-[calc(33.333%-26.66px)]"
+                >
+                  <div className={`p-6 bg-[#f7f9fb] rounded-[2.5rem] border-[8px] ${cert.borderColor} shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]`}>
+                    <div className="aspect-[4/3] bg-white rounded-2xl flex items-center justify-center flex-col gap-4 text-slate-300 mb-8 relative overflow-hidden">
+                      {cert.image ? (
+                        <img
+                          src={cert.image}
+                          alt={`Certificado de ${cert.title}`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      ) : (
+                        <>
+                          <div className="w-20 h-20 rounded-full bg-slate-50 flex items-center justify-center">
+                            <ShieldCheck size={40} className="opacity-20" />
+                          </div>
+                          <span className="text-[10px] font-bold uppercase tracking-[0.3em]">
+                            Official Credential
+                          </span>
+                        </>
+                      )}
+                      
+                      <div className="absolute inset-0 bg-[#162839]/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
+                        <button className="bg-white text-[#162839] px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 shadow-xl">
+                          <ExternalLink size={16} />
+                          Verify Credential
+                        </button>
+                      </div>
+                    </div>
 
-                    {/* O SEU EFEITO DE HOVER INTACTO */}
-                    <div className="absolute inset-0 bg-[#162839]/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
-                      <button className="bg-white text-[#162839] px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 shadow-xl">
-                        <ExternalLink size={16} />
-                        Verify Credential
-                      </button>
+                    <div className="px-2 pb-2">
+                      <h4 className="text-xl font-black text-[#162839] mb-1">
+                        {cert.title}
+                      </h4>
+                      <div className="flex justify-between items-center">
+                        <p className="text-sm text-blue-600 font-bold">
+                          {cert.issuer}
+                        </p>
+                        <p className="text-sm text-slate-400 font-bold">
+                          {cert.year}
+                        </p>
+                      </div>
                     </div>
                   </div>
-
-                  {/* Restante do card (Título, Issuer, Year)... */}
-                  <div className="px-2 pb-2">
-                    <h4 className="text-xl font-black text-[#162839] mb-1">
-                      {cert.title}
-                    </h4>
-                    <div className="flex justify-between items-center">
-                      <p className="text-sm text-blue-600 font-bold">
-                        {cert.issuer}
-                      </p>
-                      <p className="text-sm text-slate-400 font-bold">
-                        {cert.year}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
