@@ -20,4 +20,5 @@ export interface Certification {
   issuer: string;
   borderColor: string;
   image?: string;
+  url?: string;
 }

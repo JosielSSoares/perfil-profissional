@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import minhFoto from "./assets/image/Eu.png";
-import fotoEscolaNuvem from "./assets/image/certificados/Escolada-Nuvem.jpg";
 import curriculoPDF from "./assets/docs/Curriculo_Josiel_Soares_QA_2026.pdf";
+import fotoEscolaNuvem from "./assets/image/certificados/Escolada-Nuvem.jpg";
+import certificadoMDD from "./assets/image/certificados/modelagem-de-dados.jpg";
+import badgeAWS from "./assets/image/certificados/aws-certified-cloud-practitioner.jpg";
+
 import { motion, AnimatePresence } from "motion/react";
 import { Experience, Skill, Certification } from "./types";
 import {
@@ -50,7 +53,7 @@ const experiences: Experience[] = [
     company: "Omega Distribuidora",
     role: "Web Designer - Estágio 150h",
     period: "07/2018 — 09/2018",
-    description: "Desenvolvimento de materiais gráficos e manutenção do layout do site. Essa experiência inicial foi essencial para despertar uma perspectiva da visão do usuário final.",
+    description: "Desenvolvimento de materiais gráficos e manutenção do layout do site. Essa experiência inicial foi essencial para despertar uma perspectiva da visão do usuário.",
     tags: ["Photoshop + IncScape", "HTML + CSS", "WordPress"],
     color: "border-emerald-400",
   },
@@ -107,20 +110,31 @@ const certifications: Certification[] = [
     year: "2020",
     issuer: "Uniderp",
     borderColor: "border-[#2c3e50]",
-    image: fotoEscolaNuvem,
+    image: "#",
   },
   {
     title: "Microsoft SQL Server",
     year: "2026",
     issuer: "Nota Control Tecnologia",
     borderColor: "border-[#002e1d]",
+    image: certificadoMDD,
   },
   {
     title: "AWS Cloud Practitioner",
     year: "2026",
     issuer: "Amazon Web Services",
     borderColor: "border-[#162839]",
+    image: badgeAWS,
+    url: "https://www.credly.com/badges/dabddbd5-f255-4faa-bef1-45474942752e/public_url",
   },
+  {
+    title: "AWS re/Start + IA",
+    year: "2026",
+    issuer: "Escola da Nuvem",
+    borderColor: "border-[#162839]",
+    image: fotoEscolaNuvem,
+    url: "https://www.credly.com/badges/52715606-b94d-49c3-989d-cffc646c99c4/public_url"
+  }
 ];
 
 const socialLinks = [
@@ -289,7 +303,7 @@ export default function App() {
               <div className="inline-flex items-center gap-2 bg-emerald-400 bg-emerald-500/75 px-4 py-1.5 rounded-full mb-8 border border-emerald-400/20">
                 <ShieldCheck size={14} />
                 <span className="text-[10px] font-bold tracking-[0.2em] uppercase">
-                  Precision QA Engineering
+                  QA Engineering
                 </span>
               </div>
             </motion.div>
@@ -443,11 +457,8 @@ export default function App() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group"
-              >
-                <div
-                  className={`p-6 bg-[#f7f9fb] rounded-[2.5rem] border-[8px] ${cert.borderColor} shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]`}
-                >
+                className="group">
+                <div className={`p-6 bg-[#f7f9fb] rounded-[2.5rem] border-[8px] ${cert.borderColor} shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]`}>
                   <div className="aspect-[4/3] bg-white rounded-2xl flex items-center justify-center flex-col gap-4 text-slate-300 mb-8 relative overflow-hidden">
                     {/* LÓGICA DA IMAGEM: Se cert.image existir, mostra a tag <img>, senão mostra o escudo */}
                     {cert.image ? (
