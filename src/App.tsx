@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import minhFoto from "./assets/image/Eu.png";
 import curriculoPDF from "./assets/docs/Curriculo_Josiel_Soares_QA_2026.pdf";
 import fotoEscolaNuvem from "./assets/image/certificados/Escolada-Nuvem.jpg";
-import certificadoMDD from "./assets/image/certificados/modelagem-de-dados.jpg";
+import SQLServer from "./assets/image/certificados/SQLServer.jpg";
+import ReacteNext from "./assets/image/certificados/ReacteNext.jpg";
 import badgeAWS from "./assets/image/certificados/aws-certified-cloud-practitioner.jpg";
 
 import { motion, AnimatePresence } from "motion/react";
@@ -117,7 +118,7 @@ const certifications: Certification[] = [
     year: "2026",
     issuer: "Nota Control Tecnologia",
     borderColor: "border-[#002e1d]",
-    image: certificadoMDD,
+    image: SQLServer,
   },
   {
     title: "AWS Cloud Practitioner",
@@ -134,6 +135,14 @@ const certifications: Certification[] = [
     borderColor: "border-[#162839]",
     image: fotoEscolaNuvem,
     url: "https://www.credly.com/badges/52715606-b94d-49c3-989d-cffc646c99c4/public_url"
+  },
+  {
+    title: "React.js + Next.js",
+    year: "2025",
+    issuer: "Senac Hub Academy",
+    borderColor: "border-[#162839]",
+    image: ReacteNext,
+    url:"#"
   }
 ];
 
