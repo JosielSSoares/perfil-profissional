@@ -54,7 +54,8 @@ const experiences: Experience[] = [
     company: "Omega Distribuidora",
     role: "Web Designer - Estágio 150h",
     period: "07/2018 — 09/2018",
-    description: "Desenvolvimento de materiais gráficos e manutenção do layout do site. Essa experiência inicial foi essencial para despertar uma perspectiva da visão do usuário.",
+    description:
+      "Desenvolvimento de materiais gráficos e manutenção do layout do site. Essa experiência inicial foi essencial para despertar uma perspectiva da visão do usuário.",
     tags: ["Photoshop + IncScape", "HTML + CSS", "WordPress"],
     color: "border-emerald-400",
   },
@@ -134,7 +135,7 @@ const certifications: Certification[] = [
     issuer: "Escola da Nuvem",
     borderColor: "border-[#162839]",
     image: fotoEscolaNuvem,
-    url: "https://www.credly.com/badges/52715606-b94d-49c3-989d-cffc646c99c4/public_url"
+    url: "https://www.credly.com/badges/52715606-b94d-49c3-989d-cffc646c99c4/public_url",
   },
   {
     title: "React.js + Next.js",
@@ -142,8 +143,8 @@ const certifications: Certification[] = [
     issuer: "Senac Hub Academy",
     borderColor: "border-[#162839]",
     image: ReacteNext,
-    url:"#"
-  }
+    url: "https://validadordedocumentos.senac.br/validador/F7B08398-29FC-4B16-846C-7E17CBC80458",
+  },
 ];
 
 const socialLinks = [
@@ -160,7 +161,8 @@ export default function App() {
   // Garante que o slider só ande o necessário (Total de cards - 3 visíveis)
   const maxCertIndex = Math.max(0, certifications.length - 3);
 
-  const nextCert = () => setCertIndex((prev) => Math.min(prev + 1, maxCertIndex));
+  const nextCert = () =>
+    setCertIndex((prev) => Math.min(prev + 1, maxCertIndex));
   const prevCert = () => setCertIndex((prev) => Math.max(prev - 1, 0));
 
   useEffect(() => {
@@ -444,7 +446,10 @@ export default function App() {
       </section>
 
       {/* Certifications Section */}
-      <section id="certifications" className="py-32 px-6 md:px-12 bg-white overflow-hidden">
+      <section
+        id="certifications"
+        className="py-32 px-6 md:px-12 bg-white overflow-hidden"
+      >
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div>
@@ -457,19 +462,23 @@ export default function App() {
               </p>
             </div>
             <div className="flex gap-3">
-              <button 
+              <button
                 onClick={prevCert}
                 disabled={certIndex === 0}
-                className={`w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center transition-all group ${certIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#162839] hover:text-white'}`}
+                className={`w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center transition-all group ${certIndex === 0 ? "opacity-50 cursor-not-allowed" : "hover:bg-[#162839] hover:text-white"}`}
               >
-                <ChevronLeft className={`transition-transform ${certIndex !== 0 ? 'group-active:scale-90' : ''}`} />
+                <ChevronLeft
+                  className={`transition-transform ${certIndex !== 0 ? "group-active:scale-90" : ""}`}
+                />
               </button>
-              <button 
+              <button
                 onClick={nextCert}
                 disabled={certIndex >= maxCertIndex}
-                className={`w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center transition-all group ${certIndex >= maxCertIndex ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#162839] hover:text-white'}`}
+                className={`w-14 h-14 rounded-full border border-slate-200 flex items-center justify-center transition-all group ${certIndex >= maxCertIndex ? "opacity-50 cursor-not-allowed" : "hover:bg-[#162839] hover:text-white"}`}
               >
-                <ChevronRight className={`transition-transform ${certIndex !== maxCertIndex ? 'group-active:scale-90' : ''}`} />
+                <ChevronRight
+                  className={`transition-transform ${certIndex !== maxCertIndex ? "group-active:scale-90" : ""}`}
+                />
               </button>
             </div>
           </div>
@@ -477,14 +486,15 @@ export default function App() {
           {/* Container Externo escondendo o que vazar (Overflow Hidden) */}
           <div className="overflow-visible md:overflow-hidden w-full pb-4">
             {/* Trilha Interna Deslizante */}
-            <div 
+            <div
               className="flex flex-col md:flex-row gap-10 transition-transform duration-500 ease-in-out"
               style={{
-                // Move exatemente 1 card para a esquerda (33.33% da largura + metade do gap de 40px) 
+                // Move exatemente 1 card para a esquerda (33.33% da largura + metade do gap de 40px)
                 // apenas em telas maiores. Em mobile eles empilham normalmente.
-                transform: typeof window !== 'undefined' && window.innerWidth >= 768 
-                  ? `translateX(calc(-${certIndex} * (33.333% + 13.33px)))` 
-                  : 'none'
+                transform:
+                  typeof window !== "undefined" && window.innerWidth >= 768
+                    ? `translateX(calc(-${certIndex} * (33.333% + 13.33px)))`
+                    : "none",
               }}
             >
               {certifications.map((cert, index) => (
@@ -494,11 +504,13 @@ export default function App() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  // Ao invés do grid, nós fixamos a largura do card em ~33.3% para forçar 3 por linha 
+                  // Ao invés do grid, nós fixamos a largura do card em ~33.3% para forçar 3 por linha
                   // e prevenimos que ele encolha com flex-shrink-0
                   className="group flex-shrink-0 w-full md:w-[calc(33.333%-26.66px)]"
                 >
-                  <div className={`p-6 bg-[#f7f9fb] rounded-[2.5rem] border-[8px] ${cert.borderColor} shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]`}>
+                  <div
+                    className={`p-6 bg-[#f7f9fb] rounded-[2.5rem] border-[8px] ${cert.borderColor} shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]`}
+                  >
                     <div className="aspect-[4/3] bg-white rounded-2xl flex items-center justify-center flex-col gap-4 text-slate-300 mb-8 relative overflow-hidden">
                       {cert.image ? (
                         <img
@@ -516,12 +528,29 @@ export default function App() {
                           </span>
                         </>
                       )}
-                      
+
                       <div className="absolute inset-0 bg-[#162839]/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 backdrop-blur-sm">
-                        <button className="bg-white text-[#162839] px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 shadow-xl">
-                          <ExternalLink size={16} />
-                          Verify Credential
-                        </button>
+                        {/* Verifica se a URL existe e se é diferente de "#" */}
+                        {cert.url && cert.url !== "#" ? (
+                          <a
+                            href={cert.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-white text-[#162839] px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 shadow-xl hover:bg-gray-100 transition-colors"
+                          >
+                            <ExternalLink size={16} />
+                            Verify Credential
+                          </a>
+                        ) : (
+                          /* Caso não tenha URL, mostra um botão desabilitado (opcional) */
+                          <button
+                            disabled
+                            className="bg-gray-200 text-gray-500 px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-2 shadow-xl cursor-not-allowed"
+                          >
+                            <ExternalLink size={16} />
+                            Indisponível
+                          </button>
+                        )}
                       </div>
                     </div>
 
