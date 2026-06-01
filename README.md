@@ -6,7 +6,7 @@
 
 ## Visão Geral
 
-Site de portfólio pessoal desenvolvido em **React + TypeScript**, focado em apresentar a trajetória profissional, competências técnicas e certificações de Josiel Soares na área de Quality Assurance. O projeto combina animações fluidas, design responsivo e uma identidade visual sólida para transmitir profissionalismo.
+Site de portfólio pessoal desenvolvido em **React + TypeScript**, focado em apresentar a trajetória profissional, competências técnicas na área de Quality Assurance e demais certificações. O projeto combina animações fluidas, design responsivo e uma identidade visual sólida para transmitir profissionalismo.
 
 ---
 
