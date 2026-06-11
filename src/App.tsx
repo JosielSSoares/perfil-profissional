@@ -98,9 +98,9 @@ const skills: Skill[] = [
     variant: "surface",
   },
   {
-    title: "Agile",
+    title: "Azure DevOps",
     description:
-      "Domínio de metodologias ágeis/Scrum para uma integração perfeita da equipe",
+      "Utilizado no dia a dia para gerênciar tarefas junto ao time de desenvolvimento utilizando a metodologia Scrum",
     icon: "CheckSquare",
     variant: "accent",
   },
@@ -206,13 +206,13 @@ export default function App() {
           </motion.span>
 
           <div className="hidden md:flex items-center gap-10">
-            {["Experience", "Skills", "Certifications", "Contact"].map(
+            {["Experiência", "Habilidades", "Certificações", "Contato"].map(
               (item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
                   className={`text-sm font-bold uppercase tracking-widest transition-all ${
-                    item === "Contact"
+                    item === "Contato"
                       ? "bg-[#162839] text-white px-6 py-2.5 rounded-lg hover:bg-[#274059] active:scale-95"
                       : "text-slate-900 hover:text-blue-600"
                   }`}
@@ -242,14 +242,14 @@ export default function App() {
             className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden"
           >
             <div className="flex flex-col gap-8">
-              {["Experience", "Skills", "Certifications", "Contact"].map(
+              {["Experiencia", "Habilidades", "Certificações", "Contato"].map(
                 (item) => (
                   <a
                     key={item}
                     href={`#${item.toLowerCase()}`}
                     onClick={() => setIsMenuOpen(false)}
                     className={`transition-all ${
-                      item === "Contact"
+                      item === "Contato"
                         ? "bg-[#162839] text-white px-6 py-2.5 rounded-lg hover:bg-[#274059] active:scale-95"
                         : "text-slate-900 hover:text-blue-600"
                     }`}
@@ -331,7 +331,7 @@ export default function App() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-32 px-6 md:px-12 bg-white">
+      <section id="experiência" className="py-32 px-6 md:px-12 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20">
             <span className="text-emerald-400/20 font-black text-6xl block -mb-8 select-none">
@@ -389,7 +389,7 @@ export default function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-32 px-6 md:px-12 bg-[#f2f4f6]">
+      <section id="habilidades" className="py-32 px-6 md:px-12 bg-[#f2f4f6]">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20 text-center">
             <h2 className="text-5xl font-black text-[#162839] tracking-tighter mb-4">
@@ -447,7 +447,7 @@ export default function App() {
 
       {/* Certifications Section */}
       <section
-        id="certifications"
+        id="certificações"
         className="py-32 px-6 md:px-12 bg-white overflow-hidden"
       >
         <div className="max-w-7xl mx-auto">
@@ -577,7 +577,7 @@ export default function App() {
 
       {/* CTA Section */}
       <section
-        id="contact"
+        id="contato"
         className="py-32 px-6 md:px-12 bg-[#162839] relative overflow-hidden"
       >
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
@@ -623,7 +623,7 @@ export default function App() {
               JOSIEL SOARES
             </span>
             <p className="text-xs font-bold tracking-[0.2em] text-slate-400 mt-3 uppercase">
-              © 2024 JOSIEL SOARES. THE PRECISION EDITORIAL.
+              © 2024 JOSIEL SOARES. TODOS OS DIREITOS RESERVADOS.
             </p>
           </div>
 
